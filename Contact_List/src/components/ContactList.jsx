@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
-import ContactRow from "./ContactRow";
 import { useEffect } from "react";
+import ContactRow from "./ContactRow";
 
 
 const dummyContacts = [
@@ -11,7 +11,7 @@ const dummyContacts = [
   ];
 
 
-export default function ContactList() {
+export default function ContactList({setSelectedContactId}) {
     const [contacts, setContacts] = useState(dummyContacts);
 
     useEffect(() => {
@@ -31,6 +31,7 @@ export default function ContactList() {
     },[]);
 
     console.log("Contacts: ", contacts);
+    
     return (
         <table>
             <thead>
@@ -45,10 +46,14 @@ export default function ContactList() {
                     <td>Phone</td>
                 </tr>
                 {
-                    contacts.map((contact) => {
-                        return <ContactRow key = {contact.id} contact={contact} />
-                    })
-                }
+        contacts.map(contact => (
+          <ContactRow
+            key={contact.id}
+            contact={contact}
+            setSelectedContactId={setSelectedContactId}
+          />
+        )) 
+      }
             </tbody>
         </table>
     )
